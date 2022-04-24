@@ -1,0 +1,49 @@
+	Create new VM
+Replace the demovm in each command with whatever name you want to give your Virtual machine.
+VBoxManage createvm --name demovm --register
+	To Set type Linux and version 64-bit
+VBoxManage modifyvm demovm --ostype Linux_64
+	Set RAM
+VBoxManage modifyvm demovm --memory 1024 --vram 16
+	Assign the Number of CPU cores
+VBoxManage modifyvm demovm --cpus 2
+	Create Virtual storage and set size for it
+VBoxManage createhd --filename demovm.vdi --size 32768
+	Add Storage controller and attach hard disk + ISO Image to boot.
+VBoxManage storagectl demovm --name "SATA Controller" --add sata --controller IntelAHCI
+
+VBoxManage storageattach demovm --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium H2SVM.vdi
+
+VBoxManage storageattach demovm --storagectl "SATA Controller" --port 1 --device 0 --type dvddrive --medium "/home/how2shout/tails-amd64-4.16.iso"
+Note: Change the ISO file path in the above command
+	Set Boot order
+VBoxManage modifyvm demovm  --boot1 dvd --boot2 disk --boot3 none --boot4 none
+	Set Network NAT
+VBoxManage modifyvm demovm --nic1 nat --nictype1 82540EM
+For Bridge Network, use-
+VBoxManage modifyvm demovm --nic1 bridged --nictype1 82540EM --bridgeadapter1 wlx000b819609d3
+ 
+5.  Start VM headless using vboxmanage
+After creating a VM using the above commands, it’s time to start it. Here we have two options one is headless, which will start the VM in the background and the second one is the normal one which will open the VirtualBox graphical display window to let us know what is currently running.
+vboxmanage startvm VM-name
+Replace the VM-name with the one you have just created or any other existing one to start it.
+In case you want to go headless, add that as a flag at the end of the above command:
+VBoxManage startvm VM-name --type headless
+ 
+6. List all VMs
+Well, in case you want to know what are the virtual machines created so far using the command line, run the command
+vboxmanage list vms
+ 
+7. Display all running VMs list
+Instead of showing all VMs, we can only get the ones that are currently running and active on VirtualBox,
+vboxmanage list runningvms
+ 
+8. vboxmanage command to Stop VM
+After some time, when you don’t need any active VM, we can shut it down using a command, that is-
+vboxmanage controlvm VM-name poweroff
+Note– replace VM-name with your running Virtual machine that you want to stop.
+ 
+9. Delete VM
+Well, at some point in time we need to delete the created VMs to free up space or due to any other reason. Therefore, to do that we can also use the command-
+VBoxManage unregistervm VM-name --delete
+ 
