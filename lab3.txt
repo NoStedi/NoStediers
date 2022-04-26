@@ -1,0 +1,128 @@
+CSE 3002 IWP 
+Lab Assignment - 3
+
+
+
+<html>
+   <head>
+       <title></title>
+   </head>
+   <body>
+       <form method="post">
+           User Phone No:<input type="text" name="number" id="number" />
+           <br/>
+           <br/>
+           Data Usage in MBs:<input type="text" name="amt" id="amt" />
+           <input type="button" name="submit" id="submit" onclick="getaction()" value="go"/>
+           <p id="display1"> </p>
+       </form>
+   </body>
+ 
+   <script>
+   function getaction()
+   {
+   var con = document.getElementById ('amt').value;
+   var bill_amt = 0.0;
+   if(con>0 && con<240)
+   {
+       bill_amt = 35;
+       document.getElementById ('display1').innerHTML = "Bill amount: "+bill_amt;
+   }
+   else if(con>=241 && con<1000)
+   {
+       bill_amt = 140;
+       if(con > 300){
+           bill_amt = bill_amt + (con-300)*0.30;
+       }
+       document.getElementById('display1').innerHTML = "Bill amount: "+bill_amt;
+   }
+   else if(con>=1001 && con<2000)
+   {
+       bill_amt = 240;
+       if(con > 1600){
+           bill_amt = bill_amt + (con-1600)*0.50;
+       }
+       document.getElementById('display1').innerHTML = "Bill amount: "+bill_amt;
+   }
+   else
+   {
+       bill_amt = 790;
+       if(con > 2900){
+           bill_amt = bill_amt + (con-2900)*0.30;
+       }
+       document.getElementById('display1').innerHTML = "Bill amount: "+bill_amt;
+   }
+   }
+   </script>
+</html>
+
+
+
+
+
+
+
+PART B:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title></title>
+</head>
+<body>
+   <h1>Vote Counter</h1>
+   <input type="text" name="candidate" id="candidate">
+   <button id="but">Submit Vote</button>
+   <br>
+   <br>
+   <table border="true" style="border-style: dashed">
+       <tr>
+           <th>Candidate ID. No.</th>
+           <th>Votes Received</th>
+       </tr>
+       <tr>
+           <th>1</th>
+           <th class="votes">0</th>
+       </tr>
+       <tr>
+           <th>2</th>
+           <th class="votes">0</th>
+       </tr>
+       <tr>
+           <th>3</th>
+           <th class="votes">0</th>
+       </tr>
+       <tr>
+           <th>4</th>
+           <th class="votes">0</th>
+       </tr>
+       <tr>
+           <th>5</th>
+           <th class="votes">0</th>
+       </tr>
+       <tr>
+           <th>Invalid Votes</th>
+           <th class="votes">0</th>
+       </tr>
+   </table>
+ 
+ 
+   <script>
+       let counts = Array(6).fill(0);
+       const button = document.getElementById('but');
+       const field = document.getElementById('candidate');
+       const votes = document.getElementsByClassName('votes');
+       button.addEventListener('click', () => {
+           if (field.value < 1 || field.value > 5) {
+               counts[5] += +1;
+               votes[5].innerHTML = counts[5];
+           } else {
+               counts[field.value - 1] += +1;
+               votes[field.value - 1].innerHTML = counts[field.value - 1]
+           }
+       })
+   </script>
+</body>
+</html>
+
+

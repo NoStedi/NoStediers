@@ -1,0 +1,51 @@
+
+<HTML>
+<HEAD>
+<TITLE> IWP LAB </TITLE>
+<BODY>
+<H1> IWP LAB </H1>
+<FORM action="search.php" method="POST">
+    
+    <INPUT type="submit" value="Search" />
+</FORM>
+</BODY>
+</HEAD>
+</HTML>
+
+<!DOCTYPE HTML>
+<HTML>
+<BODY>
+<?php
+    $conn = mysqli_connect("localhost", "root", "", "iwp");
+    $sql = "SELECT * FROM products";
+    $query = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($query) > 0)
+    {
+        while ($row = mysqli_fetch_assoc($query))
+        {
+            echo "Product ID: ".$row["prodid"]." Product Image: ".'<img src="data:imagejpeg;base64,'.base64_encode($row['prodimg']).'" style="width:200px;height:200px" />'
+            ." Price: ".$row["price"]." Description: ".$row["proddesc"]." MFG Date: ".$row["mfg"]
+            ." Made In: ".$row["madein"];
+        }
+    }
+
+    /* To use Upload create a new button HTMl button Table Format Varchar, BLOB, INT,DATE,VARCHAR */
+
+    /*$sql = "INSERT INTO products values('Phone 1', LOAD_FILE('/opt/lampp/htdocs/IWPLAB/phone1.jpg'), 
+            10000, 'Mobile Phone', '2020-04-25', 'India')";
+    mysqli_query($conn, $sql);*/
+    
+    mysqli_close($conn);
+?>
+</BODY>
+</HTML>
+
+
+
+
+
+
+
+
+

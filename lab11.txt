@@ -1,0 +1,207 @@
+IWP Lab 11
+
+
+
+
+
+
+
+Index.html
+<html>
+   <head>
+       <title></title>
+       <h1></h1>
+   </head>
+   <body>
+       <h1>Enter the Employee details to add to the record : </h1>
+       <form action="add.php" method="POST">
+           <label for="empid"> Employee ID: </label>
+           <input type="text" name="empid" />
+           <br>
+           <label for="name"> Name: </label>
+           <input type="text" name="name" />
+           <br>
+           <label for="age"> Age: </label>
+           <input type="number" name="age" />
+           <br>
+           <label for="qualification"> Qualification: </label>
+           <input type="text" name="qual" />
+           <br>
+           <label for="designation"> Designation: </label>
+           <input type="text" name="desg" />
+           <br>
+           <label for="salary"> Salary: </label>
+           <input type="number" name="sal" />
+           <br>
+           <input type="submit" id="submit" name="submit"/>
+       </form>
+       <h1> Enter EmP ID to Update Salry</h1>
+       <form action="update.php" method="POST">
+           <label> Employee ID: </label>
+           <input type="text" name="empid" />
+           <br>
+           <label> Salary: </label>
+           <input type="number" name="sal" />
+           <br>
+           <input type="submit" name="submit" />
+       </form>
+       <br>
+       <h1> enter the employee details to delete the record</h1>
+       <form action="del.php" method="POST">
+           <label for="empid"> Employee ID: </label>
+           <input type="text" name="empid" />
+           <br>
+           <input type="submit" name="submit" />
+       </form>
+       <br>
+       <h1> fetch employee Details</h1>
+       <form action="det.php" method="POST">
+           <input type="submit" name="submit" />
+       </form>
+   </body>
+</html>
+
+
+Add.php
+
+<!DOCTYPE html>
+<html>
+<body>
+ 
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+   $conn = mysqli_connect('localhost', 'root', '', 'mysql');
+   if (isset($_POST['name']) && isset($_POST['age']) && isset($_POST['empid']) && isset($_POST['desg'])) {
+       $empid = $_POST['empid'];
+       $name = $_POST['name'];
+       $age = $_POST['age'];
+       $qual = $_POST['qual'];
+       $desg = $_POST['desg'];
+       $sal = $_POST['sal'];
+ 
+       $sql = "INSERT INTO `employee` VALUES ('$empid', '$name', '$age', '$qual', '$desg', '$sal')";
+       $query = mysqli_query($conn, $sql);
+       if ($query) {
+           echo "Record Added";
+       } else {
+           echo "Failure";
+       }
+   }
+}
+?>
+<br>
+Employee ID: <?php echo $empid ?>
+Name: <?php echo $name ?> <br>
+Age: <?php echo $age ?> <br>
+Qualification: <?php echo $qual ?> <br>
+Designation: <?php echo $desg ?> <br>
+Salary: <?php echo $sal ?> <br>
+ 
+<?php
+   $myFile = fopen("data.txt", "a");
+   fwrite($myFile,"EmployeeID: ".$empid.", ");
+   fwrite($myFile,"Name: ".$name.", ");
+   fwrite($myFile,"Age: ".$age.", ");
+   fwrite($myFile,"Qualification: ".$qual.", ");
+   fwrite($myFile,"Designation: ".$desg.", ");
+   fwrite($myFile,"Salary: ".$sal."\n");
+   fclose($myFile);
+?>
+</body>
+</html>
+ 
+
+Del.php
+
+<!DOCTYPE html>
+<html>
+<body>
+ 
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+   $conn = mysqli_connect('localhost', 'root', '', 'mysql');
+   if (isset($_POST['empid'])) {
+       $empid = $_POST['empid'];
+ 
+       $sql = "DELETE FROM `employee` WHERE `empid` = '$empid'";
+       $query = mysqli_query($conn, $sql);
+       if ($query) {
+           echo "Value Deleted";
+       } else {
+           echo "Failure";
+       }
+   }
+}
+?>
+</body>
+</html>
+ 
+
+
+Det.php
+<!DOCTYPE html>
+<html>
+<body>
+ 
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+   $conn = mysqli_connect('localhost', 'root', '', 'mysql');
+   $sql = "SELECT * FROM `employee` WHERE `salary` > AVG(`salary`)";
+   $query = mysqli_query($conn, $sql);
+   echo "<table border = '1'>";
+   while ($row = mysqli_fetch_assoc($query))
+   {
+       echo "<tr>";
+       foreach ($row as $key => $value) {
+           echo "<td>".$value."</td>";
+       }
+       echo "</tr>";
+   }
+   echo "</table>";
+}
+?>
+</body>
+</html>
+ 
+
+
+
+
+
+
+
+
+2.
+
+<!DOCTYPE html>
+<html>
+<body>
+ 
+<?php
+   setcookie("color", "COLOR", time() + (86400 * 3));
+?>
+ 
+<?php
+   if (count($_COOKIE) > 0)
+   {
+       echo "Cookies are being used";
+   }
+   else
+   {
+       echo "Cookies are not being used right now ";
+   }
+?>
+ 
+<?php
+   echo $_COOKIE["color"];
+?>
+ 
+<?php
+   setcookie("color", "", time() - 3600);
+?>
+ 
+</body>
+</html>
+ 
+
+

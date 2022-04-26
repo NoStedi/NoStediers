@@ -1,0 +1,79 @@
+
+IWP Lab
+
+
+
+Lab7.xml
+
+<?xml version="1.0"?>
+<!DOCTYPE catalog SYSTEM "book.dtd">
+<catalog>
+   <book bookname = "The Da Vinci Code">
+       <Author>Brown, Dan</Author>
+       <Publisher>Doubleday</Publisher>
+       <Price>$24.95</Price>
+       <Genre>Fiction</Genre>
+       <Cover>Hardback</Cover>
+       <ISBN>0385504209</ISBN>
+   </book>
+   <book bookname="State of Fear">
+       <Author>Crichton, Michael</Author>
+       <Publisher>HarperCollins</Publisher>
+       <Price>$27.95</Price>
+       <Genre>Fiction</Genre>
+       <Cover>Hardback</Cover>
+       <ISBN>0786868716</ISBN>
+   </book>
+   <book bookname="Night Fall">
+       <Author>Demille, Nelson</Author>
+       <Publisher>Warner</Publisher>
+       <Price>$26.95</Price>
+       <Genre>Fiction</Genre>
+       <Cover>Hardback</Cover>
+       <ISBN>0446576638</ISBN>
+   </book>
+</catalog>
+
+
+Book.dtd
+
+<!ELEMENT catalog (book)+>
+   <!ELEMENT book (Author, Publisher, Price, Genre, Cover, ISBN)>
+       <!ATTLIST book bookname CDATA "null">
+       <!ELEMENT Author (#PCDATA)>
+       <!ELEMENT Publisher (#PCDATA)>
+       <!ELEMENT Price (#PCDATA)>
+       <!ELEMENT Genre (#PCDATA)>
+       <!ELEMENT Cover (#PCDATA)>
+       <!ELEMENT ISBN (#PCDATA)>
+
+Schema_l7.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="catalog" >
+       <xs:complexType>
+           <xs:sequence>
+               <xs:element name="book">
+                   <xs:complexType>
+                       <xs:sequence>
+                           <xs:element name="Author" type="xs:string"/>
+                           <xs:element name="Publisher" type="xs:string"/>
+                           <xs:element name="Price" type="xs:string"/>
+                           <xs:element name="Genre" type="xs:string"/>
+                           <xs:element name="Cover" type="xs:string"/>
+                           <xs:element name="ISBN" type="xs:string"/>
+                       </xs:sequence>
+                       <xs:attribute name="bookname" type="xs:string" use="required"/>
+                   </xs:complexType>
+               </xs:element>
+           </xs:sequence>
+       </xs:complexType>
+   </xs:element>
+</xs:schema>
+
+
+
+
+
+

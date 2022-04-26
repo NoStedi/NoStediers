@@ -1,0 +1,108 @@
+CSE 3002 IWP 
+Lab Assignment - 6
+
+
+
+
+Code:
+<html>
+   <head>
+       <title>
+           PHP DB Connection
+       </title>
+   </head>
+   <body>
+       <h1>Form for Student Details</h1>
+       <h3> Enter the details in the respective headings:</h3>
+       <form action="detailLa7.php" method="POST">
+           <label for="name"> Name: </label>
+           <input type="text" name="name" />
+           <br>
+           <label for="email"> Email: </label>
+           <input type="email" name="email" />
+           <br>
+           <label for="cgpa"> CGPA: </label>
+           <input type="text" name="cgpa" />
+           <br>
+           <label for="rollno"> Roll No: </label>
+           <input type="text" name="rollno" />
+           <br>
+           <input type="submit" id="submit" name="submit"/>
+       </form>
+ 
+       <h3> Filter the data to be deleted by selecting using the Register Number</h3>
+       <form action="delete.php" method="GET">
+           <label for="rollno"> RollNo: </label>
+           <input type="text" name="rollno" id="rollno"/>
+           <br>
+           <input type="submit" name="submit" />
+       </form>
+   </body>
+</html>
+detailLa7.php
+<!DOCTYPE html>
+<html>
+<body>
+ 
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+   $conn = mysqli_connect('localhost', 'root', '', 'mysql');
+   if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['rollno']) && isset($_POST['cgpa'])) {
+       $name = $_POST['name'];
+       $email = $_POST['email'];
+       $rollno = $_POST['rollno'];
+       $cgpa = $_POST['cgpa'];
+       $sql = "INSERT INTO `student` (`rollno`, `name`, `email` ,`cgpa`) VALUES ('$rollno', '$name', '$email','$cgpa')";
+       $query = mysqli_query($conn, $sql);
+       if ($query) {
+           echo "Value Added to the Database";
+       } else {
+           echo "Value not added to the Database";
+       }
+   }
+}
+?>
+<br> <br>
+Name: <?php echo $name ?> <br> <br>
+Email: <?php echo $email ?> <br> <br>
+RollNo: <?php echo $rollno ?> <br> <br>
+CGPA: <?php echo $cgpa ?> <br> <br>
+</body>
+</html>
+
+Delete.php
+<!DOCTYPE html>
+<html>
+<body>
+<?php
+   if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['submit'])) {
+       $conn = mysqli_connect('localhost', 'root', '', 'mysql');
+       if (isset($_GET['rollno']) != '')
+       {
+           $rollno = $_GET['rollno'];
+ 
+           $sql = "SELECT * FROM `student` WHERE `rollno` = '$rollno'";
+           $query = mysqli_query($conn, $sql);
+           if (mysqli_num_rows($query) > 0)
+           {
+               $sql = "DELETE FROM `student` WHERE `rollno` = '$rollno'";
+               $query = mysqli_query($conn, $sql);
+               echo "Record has been remove from the DB";
+           }
+           else
+           {
+               echo "Record does not exist in selected DB";
+           }
+       }
+   }
+?>
+</body>
+</html>
+
+
+
+
+
+
+
+

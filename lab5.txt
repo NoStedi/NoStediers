@@ -1,0 +1,59 @@
+CSE 3002 IWP 
+Lab Assignment - 5
+
+
+<html>
+   <head>
+       <title>
+
+       </title>
+   </head>
+   <body>
+       <form id="form1" action="Lab5Log.php" method="post">
+           <label> Name: </label>
+           <input type="text" name="name" />
+           <br>
+           <label> Email: </label>
+           <input type="email" name="email" />
+           <br>
+           <label> Password: </label>
+           <input type="password" name="password" />
+           <br>
+           <input type="submit"/>
+       </form>
+   </body>
+</html>
+
+<?php 
+$name=$_POST["name"];
+$password=$_POST["password"];
+$number =$_POST["number"];
+$email=$_POST["email"];
+ 
+if (empty ($name)) { 
+   $errMsg = "Error! You didn't enter the Name."; 
+            echo $errMsg; 
+}
+ 
+if (empty ($password)) { 
+   $errMsg = "Error! You didn't enter the Password."; 
+            echo $errMsg; 
+}
+ 
+if (!preg_match ("/^[0-9]*$/", $number) ){ 
+   $ErrMsg = "Only numeric value is allowed."; 
+   echo $ErrMsg; 
+}
+ 
+$pattern = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^"; 
+if (!preg_match ($pattern, $email) ){ 
+   $ErrMsg = "Email is not valid."; 
+           echo $ErrMsg; 
+} else { 
+   echo "Your EMAIL IS VALID: " .$email; 
+} 
+ 
+?> 
+
+
+

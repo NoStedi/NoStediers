@@ -1,0 +1,377 @@
+
+
+
+IWP Lab 9
+
+
+
+<html>
+   <head>
+  	<title></title>
+   </head>
+   <body>
+  	<h2>JotForm Products</h2>
+  	<h4>My products</h4>
+  	<form method="post">
+     	<input type="checkbox" id="Tshirt" name="product" value="Tshirt">
+     	<label for="Tshirt">JotForm T-Shirt $9.99</label><br>
+     	<select name="Quantity" id="Quantity">
+        	<option value="1">1</option>
+        	<option value="2">2</option>
+        	<option value="3">3</option>
+        	<option value="4">4</option>
+        	<option value="5">5</option>
+     	</select>
+     	<label for="Quantity">Quantity</label>
+     	<select name="Color" id="Color">
+        	<option value="Red">Red</option>
+        	<option value="Blue">Blue</option>
+        	<option value="Green">Green</option>
+     	</select>
+     	<label for="Color">Color</label>
+     	<select name="Size" id="Size">
+        	<option value="XS">XS</option>
+        	<option value="S">S</option>
+        	<option value="M">M</option>
+        	<option value="L">L</option>
+        	<option value="XL">XL</option>
+        	<option value="XXL">XXL</option>
+     	</select>
+     	<label for="Size">T-Shirt Size</label>
+     	<br>
+     	<input type="checkbox" id="Mug" name="product" value="Mug">
+     	<label for="Mug">JotForm Mug $4.99</label><br>
+     	<input type="checkbox" id="Pencil" name="product" value="Pencil">
+     	<label for="Pencil">JotForm Pencil $2.99</label><br>
+     	<input type="checkbox" id="Sticker" name="product" value="Sticker">
+     	<label for="Sticker">JotForm Sticker $1.99</label><br>
+     	<input type="text" name="user" id="user">
+     	<h2>Coupon Code:</h2>
+     	<p id="coupon"></p>
+     	<h2>Total without discount:</h2>
+     	<p id="total">$0.00</p>
+     	<h2>Final total:</h2>
+     	<p id="final">$0.00</p>
+     	<input type="button" name="submit" id="submit" onclick="validateForm()" value="Submit"/>
+  	</form>
+  	<h3>
+     	Product with max amount:
+     	<p id="maxitem"> </p>
+  	</h3>
+  	<h3>
+     	Product with min amount:
+     	<p id="minitem"> </p>
+  	</h3>
+  	<h2 id="unselected">Unselected Products: </h2>
+  	<div id="txtHint"><b>Person info will be listed here...</b></div>
+
+  	<script>
+     	function validateForm() {
+    	 
+         	var quant= document.getElementById("Quantity").value;
+    	 
+         	var tshirt = document.getElementById("Tshirt").checked;
+    	 
+         	var mug = document.getElementById("Mug").checked;
+    	 
+         	var pencil = document.getElementById("Pencil").checked;
+    	 
+         	var sticker = document.getElementById("Sticker").checked;
+    	 
+         	var user = document.getElementById("user").value;
+    	 
+    	 
+    	 
+         	var items = {
+    	 
+             	Tshirt: 0,
+    	 
+             	Mug: 0,
+    	 
+             	Pencil: 0,
+    	 
+             	Sticker: 0
+    	 
+         	};
+    	 
+        	 
+    	 
+         	let mx = 0;
+    	 
+         	let mn = 100000;
+    	 
+         	let mxitem = ''
+    	 
+         	let mnitem = ''
+    	 
+    	 
+    	 
+         	var total = 0.00;
+    	 
+         	if(tshirt) {
+    	 
+             	items.Tshirt = 1;
+    	 
+             	total += 9.99 * quant;
+    	 
+             	if(9.99 * quant > mx) {
+    	 
+                 	mx = 9.99 * quant;
+    	 
+                 	mxitem = 'T-Shirt';
+    	 
+             	}
+    	 
+             	if(9.99 * quant < mn) {
+    	 
+                 	mn = 9.99 * quant;
+    	 
+                 	mnitem = 'T-Shirt';
+    	 
+             	}
+    	 
+         	}
+    	 
+         	if(mug) {
+    	 
+             	items.Mug = 1;
+    	 
+             	total += 4.99;
+    	 
+             	if(4.99 > mx) {
+    	 
+                 	mx = 4.99;
+    	 
+                 	mxitem = 'Mug';
+    	 
+             	}
+    	 
+             	if(4.99 < mn) {
+    	 
+                 	mn = 4.99;
+    	 
+                 	mnitem = 'Mug';
+    	 
+             	}
+    	 
+         	}
+    	 
+         	if(pencil) {
+    	 
+             	items.Pencil = 1;
+    	 
+             	total += 2.99;
+    	 
+             	if(2.99 > mx) {
+    	 
+                 	mx = 2.99;
+    	 
+                 	mxitem = 'Pencil';
+    	 
+             	}
+    	 
+             	if(2.99 < mn) {
+    	 
+                 	mn = 2.99;
+    	 
+                 	mnitem = 'Pencil';
+    	 
+             	}
+    	 
+         	}
+    	 
+         	if(sticker) {
+    	 
+             	items.Sticker = 1;
+    	 
+             	total += 1.99;
+    	 
+             	if(1.99 > mx) {
+    	 
+                 	mx = 1.99;
+    	 
+                 	mxitem = 'Sticker';
+    	 
+             	}
+    	 
+             	if(1.99 < mn) {
+    	 
+                 	mn = 1.99;
+    	 
+                 	mnitem = 'Sticker';
+    	 
+             	}
+    	 
+         	}
+    	 
+         	document.getElementById("total").innerHTML = total;
+    	 
+         	document.getElementById("maxitem").innerHTML = mxitem;
+    	 
+         	document.getElementById("minitem").innerHTML = mnitem;
+    	 
+    	 
+    	 
+         	Object.keys(items).forEach(function(key) {
+    	 
+        	 
+    	 
+         	if(items[key] == 0){
+    	 
+             	console.log(key, items[key]);
+    	 
+             	document.getElementById("unselected").innerHTML += key + '<br>';
+    	 
+         	}
+    	 
+      	2022, 2:00
+    	 
+         	});
+    	 
+    	 
+    	 
+         	if(user == "") {
+    	 
+             	alert("Please enter your name");
+    	 
+         	}
+    	 
+         	if(user.length == 7) {
+    	 
+             	const var1 = user[0].toUpperCase();
+    	 
+             	const countVowels = (str) => (str.match(/[aeiou]/gi) || []).length;
+    	 
+             	const var2 = countVowels(user);
+    	 
+             	const var3 = user[user.length-1];
+    	 
+             	arr= ["!","@","#","$","%","&","*"];
+    	 
+             	const var4 = arr[Math.floor(Math.random() * arr.length)];
+    	 
+             	const var5 = user.length-var2;
+    	 
+             	const coupon = var1+var2+var3+var4+var5;
+    	 
+             	document.getElementById("coupon").innerHTML = coupon;
+    	 
+             	final = total - (total*0.1);
+    	 
+         	}
+    	 
+         	else if (user.length == 8) {
+    	 
+             	let arr = user.split('');
+    	 
+             	let coupons = "";
+    	 
+             	let alph=["a","b","c","d","e","f","g","h","i","j"];
+    	 
+             	for(let i=0; i<arr.length; i++) {
+    	 
+                 	if(alph.includes(arr[i])) {
+    	 
+                     	coupons = coupons.concat(arr[i]);
+    	 
+                 	}
+    	 
+             	}
+    	 
+             	console.log(coupons);
+    	 
+             	document.getElementById("coupon").innerHTML = coupons;
+    	 
+             	final = total - (total*0.1);
+    	 
+    	 
+    	 
+         	}
+    	 
+         	else {
+    	 
+             	alert("Invalid coupon code");
+    	 
+         	}
+    	 
+         	if(final > 10) {
+    	 
+             	final = final - (final*0.1);
+    	 
+         	}
+    	 
+        	document.getElementById("final").innerHTML = final;
+    	var xmlhttp = new XMLHttpRequest();
+    	xmlhttp.onreadystatechange = function() {
+      	if (this.readyState == 4 && this.status == 200) {
+   	 document.getElementById("txtHint").innerHTML = this.responseText;
+      	}
+    	};
+    	xmlhttp.open("GET","getqty.php?q="+quant+quant+quant+quant,true);
+	xmlhttp.send();
+    	 
+    	 
+     	}
+    	 
+    	 
+  	</script>
+   </body>
+</html>
+
+
+Getqtyp.php
+
+
+
+<!DOCTYPE html>
+<html>
+   <head>
+  	<style>
+     	table {
+     	width: 100%;
+     	border-collapse: collapse;
+     	}
+     	table, td, th {
+     	border: 1px solid black;
+     	padding: 5px;
+     	}
+     	th {text-align: left;}
+  	</style>
+   </head>
+   <body>
+  	<?php
+     	$q = intval($_GET['q']);
+    	 
+     	$con = mysqli_connect('localhost','root','','mysql');
+     	if (!$con) {
+       	die('Could not connect: ' . mysqli_error($con));
+     	}
+     	echo "Connected";
+
+     	$sql="SELECT * FROM qtys WHERE tshirts = 10";
+     	$result = mysqli_query($con,$sql);
+    	 
+     	echo "<table>
+     	<tr>
+     	<th>Tshirts</th>
+     	<th>mug</th>
+     	<th>pencil</th>
+     	<th>sticker</th>
+     	</tr>";
+     	while($row = mysqli_fetch_array($result)) {
+       	echo "<tr>";
+       	echo "<td>" . $row['tshirts'] . "</td>";
+       	echo "<td>" . $row['mug'] . "</td>";
+       	echo "<td>" . $row['pencil'] . "</td>";
+       	echo "<td>" . $row['sticker'] . "</td>";
+       	echo "</tr>";
+     	}
+     	echo "</table>";
+     	mysqli_close($con);
+     	?>
+   </body>
+</html>
+
+
+
+

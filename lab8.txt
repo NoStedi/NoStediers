@@ -1,0 +1,145 @@
+IWP Lab 8
+
+
+
+<!DOCTYPE html>
+<html>
+   <head>
+       <title>Lab 8 Personal Information</title>
+   </head>
+   <body>
+       <form id="form1" action="submit.php" method="post">
+           <h2>Personal Details</h2>
+           <label> First Name: </label>
+           <input type="text" name="fname" />
+           <br>
+           <label> Last Name: </label>
+           <input type="text" name="lname" />
+           <br>
+           <label> Address: </label>
+           <input type="text-area" name="add" />
+           <br>
+           <label for="dob">Date of Birth</label><br>
+           <input type="date" id="dob" name="dob" required><br>
+           <label> Phone Number: </label>
+           <input type="text" name="phno" />
+           <br>
+           <h2>Card Details</h2>
+           <label> Card Number: </label>
+           <input type="text" name="cnum" />
+           <br>
+           <label> Card Expiry: </label>
+           <input type="text" name="cexp" />
+           <br>
+           <label> Card CVV: </label>
+           <input type="text" name="ccvv" />
+           <br>
+           <input type="submit"/>
+       </form>
+   </body>
+</html>
+
+
+
+Submit.php
+<?php
+ 
+function addData($fname, $phno, $age, $address, $cardnum, $cvv) {
+   $conn = mysqli_connect('localhost', 'root', '', 'mysql') or die('Error connecting to
+  MySQL server: '.mysqli_connect_error());
+  echo "Function Called";
+   $sql = "INSERT INTO `dets_usr` (`uname`, `phno`, `age`, `address`, `cardnum`, `cvv`) VALUES
+  ('$fname', '$phno', '$age', '$address', '$cardnum', '$cvv')";
+  echo $sql;
+   $query = mysqli_query($conn, $sql);
+   echo $sql;
+   if ($query) {
+   echo "Data inserted successfully";
+   } else {
+   echo "Data not inserted";
+   }
+  }
+function calcAge($date) {
+   $from = new DateTime($date);
+   $to = new DateTime('today');
+   echo "<h3>Calculated age: ".$from->diff($to)->y."</h3><br/>";
+   return $from->diff($to)->y;
+  }
+ 
+if (empty($_POST['fname'] or $_POST['phno'] or $_POST['address'] or $_POST['dob'])){
+   $errMsg = "Any one field is empty...please fill";
+   echo $errMsg;
+   } else {
+   $fname = $_POST['fname'];
+   $lname = $_POST['lname'];
+   $add = $_POST["add"];
+   $dob = $_POST["dob"];
+   $age = calcAge($dob);
+   $cnum = $_POST["cnum"];
+   $cexp = $_POST["cexp"];
+   $cvv = $_POST["ccvv"];
+   $phno = $_POST['phno'];
+   }
+ 
+if (empty($fname)){
+   $errMsg = "Error name not entered";
+   echo $errMsg;
+}
+ 
+if (empty($add)){
+   $errMsg = "Error Address not entered";
+   echo $errMsg;
+}
+ 
+if (empty($cnum)){
+   $errMsg = "Error Card Number not entered";
+   echo $errMsg;
+}
+ 
+if (empty($cvv)){
+   $errMsg = "Error Card CVV not entered";
+   echo $errMsg;
+}
+ 
+if (empty($cexp)){
+   $errMsg = "Error Card Expiry Date not entered";
+   echo $errMsg;
+}
+ 
+if (empty($phno)){
+   $errMsg = "Error email not entered";
+   echo $errMsg;
+}
+ 
+if (!preg_match ("/^[a-zA-z]*$/", $fname) ) {
+   $ErrMsg = "Only alphabets and whitespace are allowed.";
+   echo $ErrMsg;
+  }
+  if (!preg_match ("/^[0-9]*$/", $phno) ){
+   $ErrMsg = "Only numeric value is allowed.";
+   echo $ErrMsg;
+  }
+  echo "Thank you for your submission";
+  echo "<br>";
+  echo "Your name is: " . $fname . " " . $lname;
+  echo "<br>";
+  echo "Your Phone number is".$phno;
+  echo "<br>";
+  echo "Your address is: " . $add;
+  echo "<br>";
+  echo "Your card number is: " . $cnum;
+  echo "<br>";
+  echo "Your card CVV is: " . $ccvv;
+  echo "<br>";
+  echo "Your card expiry date is: " . $cexp;
+addData($fname, $phno, $age, $add, $cnum, $ccvv);
+ 
+?>
+
+
+
+
+
+
+
+

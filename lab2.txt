@@ -1,0 +1,48 @@
+CSE 3002 IWP 
+Lab Assignment - 2
+
+<html>
+<head>
+<style>
+body {
+   font-family: Arial, Helvetica, sans-serif;
+   font-size: 12;
+}
+ 
+td {
+ padding: 15px;
+}
+ 
+</style>
+</head>
+<body>
+ 
+<table border style="padding: 2px;">
+   <caption></caption>
+   <tr style="background-color: rgb(172, 121, 255);">
+     <td colspan="3">a HTML table with a cell that spans across three columns</td>
+   </tr>
+ 
+   <tr style="background-color: rgb(117, 255, 112);" >
+     <td style="font-style: italic;">lorem</td>
+     <td>ipsum</td>
+     <td style="font-weight: bold;">dolor</td>
+   </tr>
+ 
+   <tr style="background-color: rgb(70, 110, 93);">
+     <td>hello</td>
+     <td style="vertical-align: text-bottom;">good</td>
+     <td>bye</td>
+   </tr>
+ 
+   <tr style="background-color: rgb(172, 121, 255);">
+     <td colspan="2" style="text-transform:uppercase;">this cell spans across two columns</td>
+     <td style="text-decoration: line-through;">!!!</td>
+   </tr>
+</table>
+ 
+</body>
+</html>
+
+
+

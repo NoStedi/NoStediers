@@ -1,0 +1,265 @@
+CSE 3002 IWP 
+Lab Assignment - 4
+
+
+<html>
+   <head>
+       <title></title>
+   </head>
+   <style>
+       #submit {
+           display: inline-block;
+           color: #fff;
+           background-color:rgba(250,150,18,255);
+           text-shadow: 0 0 2px rgba(0,0,0,.3);
+           font-family: sans-serif;
+           box-shadow:
+               inset 0 0 2px 0 rgba(255,255,255,.4),
+               inset 0 0 3px 0 rgba(0,0,0,.4),
+               inset 0 0 3px 5px rgba(0,0,0,.05),
+               2px 2px 4px 0 rgba(0,0,0,.25);
+           border-radius: 4px;
+           padding: 8px 16px;;
+           font-size: 12px;
+           line-height: 14px;
+           position: relative;
+       }
+       #submit.red { background: #EA3D33; }
+       #submit.green { background: #7ED321; }
+       #submit.blue { background: #4A90E2; }
+       #submit:before, .button:after {
+           content: '';
+           display: block;
+           position: absolute;
+           left: 2px;
+           right: 2px;
+           height: 3px;
+       }
+       #submit:before {
+           top: 0;
+           border-bottom-left-radius: 4px;
+           border-bottom-right-radius: 4px;
+           background: rgba(250,150,18,255);
+           box-shadow: 0 1px 2px 0 rgba(255,255,255,.6);
+       }
+       #submit:after {
+           bottom: 0;
+           border-top-left-radius: 4px;
+           border-top-right-radius: 4px;
+           background: rgba(250,150,18,255);
+           box-shadow: 0 -1px 2px 0 rgba(0,0,0,.15);
+       }
+       p {
+           font-family: sans-serif;
+           font-size: 17px;
+           line-height: 14px;
+           color: #333;
+           margin: 0;
+           padding: 10;
+          font-style: italic;
+       }
+   </style>
+   <body>
+       <h2>JofForm Products</h2>
+       <h4>My products</h4>
+       <form method="post">
+           <input type="checkbox" id="Tshirt" name="product" value="Tshirt">
+           <label for="Tshirt">JotForm T-Shirt <b>$9.99</b></label><br>
+ 
+           <select name="Quantity" id="Quantity">
+               <option value="1">1</option>
+               <option value="2">2</option>
+               <option value="3">3</option>
+               <option value="4">4</option>
+               <option value="5">5</option>
+           </select>
+          
+           <label for="Quantity">Quantity</label>
+           <select name="Color" id="Color">
+               <option value="Red">Red</option>
+               <option value="Blue">Blue</option>
+               <option value="Green">Green</option>
+           </select>
+           <label for="Color">Color</label>
+ 
+           <select name="Size" id="Size">
+           <option value="XS">XS</option>
+           <option value="S">S</option>
+           <option value="M">M</option>
+           <option value="L">L</option>
+           <option value="XL">XL</option>
+           <option value="XXL">XXL</option>
+           </select>
+           <label for="Size">T-Shirt Size</label>
+           <br>
+ 
+           <input type="checkbox" id="Mug" name="product" value="Mug">
+           <label for="Mug">JotForm Mug <b>$4.99</b></label><br>
+           <input type="checkbox" id="Pencil" name="product" value="Pencil">
+           <label for="Pencil">JotForm Pencil <b>$2.99</b></label><br>
+           <input type="checkbox" id="Sticker" name="product" value="Sticker">
+           <label for="Sticker">JotForm Sticker <b>$1.99</b></label><br>
+           <label for="usrlab">Enter a Username of length 7 or 8</label><br>
+           <input type="text" name="user" id="user">
+           <h2>Coupon Code:</h2><p id="coupon"></p>        
+           <h2>Total without discount:</h2><p id="total">$0.00</p>
+           <h2>Final total:</h2><p id="final">$0.00</p>
+           <input type="button" name="submit" id="submit" onclick="validateForm()" value="Submit"/>
+   </form>
+   <h3>Product with Greatest amount: </h3><p id="maxitem"> </p>
+   <h3>Product with Least amount: </h3><p id="minitem"></p> </p>
+   <h3 >Unselected Products: </h3>
+   <p id="unselected"></p>
+ 
+       <script>
+           function validateForm() {
+               var quant_tot= document.getElementById("Quantity").value;
+               var tshirt_t = document.getElementById("Tshirt").checked;
+               var mug_t = document.getElementById("Mug").checked;
+               var pencil_nos = document.getElementById("Pencil").checked;
+               var sticker_count = document.getElementById("Sticker").checked;
+               var user_det = document.getElementById("user").value;
+ 
+               var items_det = {
+                   Tshirt: 0,
+                   Mug: 0,
+                   Pencil: 0,
+                   Sticker: 0
+               };
+              
+               let mx_c = 0;
+               let mn_c = 100000;
+               let mx_item = ''
+               let mn_item = ''
+ 
+               var total = 0.00;
+               if(tshirt_t) {
+                   items_det.Tshirt = 1;
+                   total += 9.99 * quant_tot;
+                   if(9.99 * quant_tot > mx_c) {
+                       mx_c = 9.99 * quant_tot;
+                       mx_item = 'T-Shirt';
+                   }
+                   if(9.99 * quant_tot < mn_c) {
+                       mn_c = 9.99 * quant_tot;
+                       mn_item = 'T-Shirt';
+                   }
+               }
+               if(mug_t) {
+                   items_det.Mug = 1;
+                   total += 4.99;
+                   if(4.99 > mx_c) {
+                       mx_c = 4.99;
+                       mx_item = 'Mug';
+                   }
+                   if(4.99 < mn_c) {
+                       mn_c = 4.99;
+                       mn_item = 'Mug';
+                   }
+               }
+               if(pencil_nos) {
+                   items_det.Pencil = 1;
+                   total += 2.99;
+                   if(2.99 > mx_c) {
+                       mx_c = 2.99;
+                       mx_item = 'Pencil';
+                   }
+                   if(2.99 < mn_c) {
+                       mn_c = 2.99;
+                       mn_item = 'Pencil';
+                   }
+               }
+               if(sticker_count) {
+                   items_det.Sticker = 1;
+                   total += 1.99;
+                   if(1.99 > mx_c) {
+                       mx_c = 1.99;
+                       mx_item = 'Sticker';
+                   }
+                   if(1.99 < mn_c) {
+                       mn_c = 1.99;
+                       mn_item = 'Sticker';
+                   }
+               }
+               document.getElementById("total").innerHTML = "$" + total;
+               document.getElementById("maxitem").innerHTML = mx_item;
+               document.getElementById("minitem").innerHTML = mn_item;
+               document.getElementById("unselected").innerHTML = '';
+               Object.keys(items_det).forEach(function(key) {
+              
+               if(items_det[key] == 0){
+                   console.log(key, items_det[key]);
+                   document.getElementById("unselected").innerHTML += key + '<br>';
+               }
+          
+               });
+ 
+               if(user_det == "") {
+                   alert("Please enter your Username");
+               }
+               if(user_det.length == 7) {
+                   const var1 = user_det[0].toUpperCase();
+                   const countVowels = (str) => (str.match(/[aeiou]/gi) || []).length;
+                   const var2 = countVowels(user_det);
+                   const var3 = user_det[user_det.length-1];
+                   arr= ["!","@","#","$","%","&","*"];
+                   const var4 = arr[Math.floor(Math.random() * arr.length)];
+                   const var5 = user_det.length-var2;
+                   const coupon = var1+var2+var3+var4+var5;
+                   document.getElementById("coupon").innerHTML = coupon;
+                   final = total - (total*0.1);
+               }
+               else if (user_det.length == 8) {
+                   let arr = user_det.split('');
+                   let coupons = "";
+                   let alph=["a","b","c","d","e","f","g","h","i","j"];
+                   for(let i=0; i<arr.length; i++) {
+                       if(alph.includes(arr[i])) {
+                           coupons = coupons.concat(arr[i]);
+                       }
+                   }
+                   console.log(coupons);
+                   document.getElementById("coupon").innerHTML = coupons;
+                   final = total - (total*0.1);
+ 
+               }
+               else {
+                   alert("Invalid coupon code");
+               }
+               if(final > 10) {
+                   final = final - (final*0.1);
+               }
+               document.getElementById("final").innerHTML = "$" + final;
+           }
+       </script>
+   </body>
+</html>
+
+
+
+
+PART B:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title></title>
+</head>
+<body>
+   <h1>Image with Clickable Maps</h1>
+   <img src="https://picsum.photos/500/400?random=1" alt="shape" usemap="#shape" width="400" height="367">
+ 
+   <map name="shape">
+       <area shape="squ" coords="13,218,114,324" alt="Sq" href="square.html">
+       <area shape="circle" coords="65,94,57" alt="Circle" href="circle.html"">
+       <area shape="rect" coords="162,41,381,140" alt="Rect" href="rect.html">
+       <area shape="poly" coords="251,212,398,219,327,309,167,311" alt="Parrlo" href="paral.html">
+     </map>
+ 
+</body>
+</html>
+
+
+
+
+
